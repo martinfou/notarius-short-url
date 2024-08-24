@@ -2,6 +2,7 @@ package com.notarius.shorturl.web.rest;
 
 import com.notarius.shorturl.domain.Url;
 import com.notarius.shorturl.repository.UrlRepository;
+import com.notarius.shorturl.util.UrlUtil;
 import com.notarius.shorturl.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,6 +52,7 @@ public class UrlResource {
         if (url.getId() != null) {
             throw new BadRequestAlertException("A new url cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        url.setShortUrl(UrlUtil.generateShortUrl(url.getFullUrl()));
         url = urlRepository.save(url);
         return ResponseEntity.created(new URI("/api/urls/" + url.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, url.getId().toString()))

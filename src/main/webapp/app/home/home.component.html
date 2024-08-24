@@ -4,9 +4,20 @@
   </div>
 
   <div class="col-md-9">
-    <h1 class="display-4"><span jhiTranslate="home.title">Welcome, Java Hipster!</span> (Notarius Short Url)</h1>
-
-    <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
+    <div class="container">
+      <h3>URL Shortener</h3>
+      <form (submit)="generateShortUrl()">
+        <div class="form-group">
+          <label for="url">Enter URL:</label>
+          <input type="text" id="url" [(ngModel)]="fullUrl" name="url" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Generate Short URL</button>
+      </form>
+      <div>
+        <h3>Short URL:</h3>
+        <p>{{ shortUrl }}</p>
+      </div>
+    </div>
 
     <div>
       @if (account() !== null) {
@@ -25,21 +36,6 @@
             >, you can try the default accounts:<br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;) <br />- User
             (login=&quot;user&quot; and password=&quot;user&quot;).</span
           >
-        </div>
-
-        <div class="container">
-          <h1>URL Shortener</h1>
-          <form (submit)="generateShortUrl()">
-            <div class="form-group">
-              <label for="url">Enter URL:</label>
-              <input type="text" id="url" [(ngModel)]="fullUrl" name="url" class="form-control" />
-            </div>
-            <button type="submit" class="btn btn-primary">Generate Short URL</button>
-          </form>
-          <div *ngIf="shortUrl">
-            <h2>Short URL:</h2>
-            <p>{{ shortUrl }}</p>
-          </div>
         </div>
 
         <div class="alert alert-warning">
