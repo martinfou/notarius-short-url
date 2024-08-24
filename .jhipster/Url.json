@@ -1,0 +1,27 @@
+{
+  "annotations": {
+    "changelogDate": "20240824185006"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "shortUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fullUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDateTime",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "expirationDateTime",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "name": "Url",
+  "relationships": [],
+  "searchEngine": "no"
+}

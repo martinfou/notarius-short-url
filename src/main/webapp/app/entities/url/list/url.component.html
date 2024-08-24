@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="UrlHeading">
+    <span jhiTranslate="notariusShortUrlApp.url.home.title">Urls</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="notariusShortUrlApp.url.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-url"
+        [routerLink]="['/url/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="notariusShortUrlApp.url.home.createLabel">Create a new Url</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (urls?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="notariusShortUrlApp.url.home.notFound">No Urls found</span>
+    </div>
+  }
+
+  @if (urls && urls.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="shortUrl">
+              <div class="d-flex">
+                <span jhiTranslate="notariusShortUrlApp.url.shortUrl">Short Url</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fullUrl">
+              <div class="d-flex">
+                <span jhiTranslate="notariusShortUrlApp.url.fullUrl">Full Url</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="creationDateTime">
+              <div class="d-flex">
+                <span jhiTranslate="notariusShortUrlApp.url.creationDateTime">Creation Date Time</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expirationDateTime">
+              <div class="d-flex">
+                <span jhiTranslate="notariusShortUrlApp.url.expirationDateTime">Expiration Date Time</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (url of urls; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/url', url.id, 'view']">{{ url.id }}</a>
+              </td>
+              <td>{{ url.shortUrl }}</td>
+              <td>{{ url.fullUrl }}</td>
+              <td>{{ url.creationDateTime | formatMediumDatetime }}</td>
+              <td>{{ url.expirationDateTime | formatMediumDatetime }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/url', url.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/url', url.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(url)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

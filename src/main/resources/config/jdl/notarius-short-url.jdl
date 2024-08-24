@@ -1,0 +1,7 @@
+
+entity Url {
+	shortUrl String,
+    fullUrl String,
+    creationDateTime ZonedDateTime,
+    expirationDateTime ZonedDateTime
+}

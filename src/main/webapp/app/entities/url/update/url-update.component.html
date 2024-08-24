@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-url-heading" data-cy="UrlCreateUpdateHeading" jhiTranslate="notariusShortUrlApp.url.home.createOrEditLabel">
+        Create or edit a Url
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="notariusShortUrlApp.url.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_shortUrl" jhiTranslate="notariusShortUrlApp.url.shortUrl">Short Url</label>
+          <input type="text" class="form-control" name="shortUrl" id="field_shortUrl" data-cy="shortUrl" formControlName="shortUrl" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fullUrl" jhiTranslate="notariusShortUrlApp.url.fullUrl">Full Url</label>
+          <input type="text" class="form-control" name="fullUrl" id="field_fullUrl" data-cy="fullUrl" formControlName="fullUrl" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_creationDateTime" jhiTranslate="notariusShortUrlApp.url.creationDateTime"
+            >Creation Date Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_creationDateTime"
+              data-cy="creationDateTime"
+              type="datetime-local"
+              class="form-control"
+              name="creationDateTime"
+              formControlName="creationDateTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expirationDateTime" jhiTranslate="notariusShortUrlApp.url.expirationDateTime"
+            >Expiration Date Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_expirationDateTime"
+              data-cy="expirationDateTime"
+              type="datetime-local"
+              class="form-control"
+              name="expirationDateTime"
+              formControlName="expirationDateTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

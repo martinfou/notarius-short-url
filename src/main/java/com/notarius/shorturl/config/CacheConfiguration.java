@@ -50,6 +50,7 @@ public class CacheConfiguration {
             createCache(cm, com.notarius.shorturl.domain.User.class.getName());
             createCache(cm, com.notarius.shorturl.domain.Authority.class.getName());
             createCache(cm, com.notarius.shorturl.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.notarius.shorturl.domain.Url.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

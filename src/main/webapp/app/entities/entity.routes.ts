@@ -6,6 +6,11 @@ const routes: Routes = [
     data: { pageTitle: 'notariusShortUrlApp.adminAuthority.home.title' },
     loadChildren: () => import('./admin/authority/authority.routes'),
   },
+  {
+    path: 'url',
+    data: { pageTitle: 'notariusShortUrlApp.url.home.title' },
+    loadChildren: () => import('./url/url.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 
