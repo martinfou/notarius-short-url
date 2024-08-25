@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import SharedModule from 'app/shared/shared.module';
 import { AccountService } from 'app/core/auth/account.service';
@@ -20,6 +21,9 @@ export default class HomeComponent implements OnInit, OnDestroy {
   account = signal<Account | null>(null);
   shortenerFullUrl: string;
   shortenerShortUrl: string;
+  expanderFullUrl: string;
+  expanderShortUrl: string;
+  errorMessage: string;
   fullUrl: string;
   shortUrl: string;
 
@@ -28,6 +32,9 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.shortUrl = '';
     this.shortenerFullUrl = '';
     this.shortenerShortUrl = '';
+    this.expanderFullUrl = '';
+    this.expanderShortUrl = '';
+    this.errorMessage = '';
   }
 
   private readonly destroy$ = new Subject<void>();
@@ -54,13 +61,22 @@ export default class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  getFullUrl(): string {
-    console.log('getFullUrl');
-    this.http.get('/api/urls/shorturl?url=' + this.shortUrl).subscribe((response: any) => {
-      this.fullUrl = response.fullUrl;
-    });
-    console.log(this.fullUrl);
-    return this.fullUrl;
+  getFullUrl() {
+    console.log('getFullUrl ' + this.expanderShortUrl);
+    this.http.get('/api/urls/shorturl?url=' + this.expanderShortUrl).subscribe(
+      (response: any) => {
+        this.expanderFullUrl = response.fullUrl;
+        this.errorMessage = '';
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this.errorMessage = this.expanderShortUrl + ' URL not found';
+          this.expanderFullUrl = '';
+        } else {
+          this.errorMessage = 'An error occurred';
+        }
+      },
+    );
   }
 
   ngOnDestroy(): void {

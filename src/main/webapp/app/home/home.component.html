@@ -27,13 +27,14 @@
           <form (submit)="getFullUrl()">
             <div class="form-group">
               <label for="shortUrl">Enter URL:</label>
-              <input type="text" id="shortUrl" [(ngModel)]="shortUrl" name="shortUrl" class="form-control" />
+              <input type="text" id="shortUrl" [(ngModel)]="expanderShortUrl" name="expanderShortUrl" class="form-control" />
             </div>
             <button type="submit" class="btn btn-primary">Get Full URL</button>
           </form>
           <div>
             <p>Full URL:</p>
-            <p>{{ fullUrl }}</p>
+            <p>{{ expanderFullUrl }}</p>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
           </div>
         </div>
       </div>
@@ -57,51 +58,8 @@
             (login=&quot;user&quot; and password=&quot;user&quot;).</span
           >
         </div>
-
-        <div class="alert alert-warning">
-          <span jhiTranslate="global.messages.info.register.noaccount">You don&apos;t have an account yet?</span>&nbsp;
-          <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
-        </div>
       }
     </div>
-
-    <p jhiTranslate="home.question">If you have any question on JHipster:</p>
-
-    <ul>
-      <li>
-        <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.homepage"
-          >JHipster homepage</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://stackoverflow.com/tags/jhipster/info"
-          target="_blank"
-          rel="noopener noreferrer"
-          jhiTranslate="home.link.stackoverflow"
-          >JHipster on Stack Overflow</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/jhipster/generator-jhipster/issues?state=open"
-          target="_blank"
-          rel="noopener noreferrer"
-          jhiTranslate="home.link.bugtracker"
-          >JHipster bug tracker</a
-        >
-      </li>
-      <li>
-        <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.chat"
-          >JHipster public chat room</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.follow"
-          >follow &#64;jhipster on Twitter</a
-        >
-      </li>
-    </ul>
 
     <p>
       <span jhiTranslate="home.like">If you like JHipster, don&apos;t forget to give us a star on</span>

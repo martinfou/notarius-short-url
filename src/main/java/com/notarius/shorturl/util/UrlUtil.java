@@ -7,6 +7,8 @@ import org.apache.commons.codec.binary.Hex;
 
 public class UrlUtil {
 
+    public static final String HTTP_SHORT_URL = "http://short.url/";
+
     public static String generateShortUrl(String fullUrl) {
         if (fullUrl == null) {
             return "";
@@ -16,7 +18,7 @@ public class UrlUtil {
             byte[] encodedhash = digest.digest(fullUrl.getBytes(StandardCharsets.UTF_8));
             String hash = Hex.encodeHexString(encodedhash);
             var normalizedHash = hash.length() > 10 ? hash.substring(0, 10) : hash;
-            return "http://short.url/" + normalizedHash;
+            return HTTP_SHORT_URL + normalizedHash;
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Unable to find SHA-256 algorithm", e);
         }
