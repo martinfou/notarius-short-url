@@ -18,12 +18,16 @@ import { Account } from 'app/core/auth/account.model';
 })
 export default class HomeComponent implements OnInit, OnDestroy {
   account = signal<Account | null>(null);
+  shortenerFullUrl: string;
+  shortenerShortUrl: string;
   fullUrl: string;
   shortUrl: string;
 
   constructor(private http: HttpClient) {
     this.fullUrl = '';
     this.shortUrl = '';
+    this.shortenerFullUrl = '';
+    this.shortenerShortUrl = '';
   }
 
   private readonly destroy$ = new Subject<void>();
@@ -46,8 +50,17 @@ export default class HomeComponent implements OnInit, OnDestroy {
     console.log('generateShortUrl');
     console.log(this.fullUrl);
     this.http.post('/api/urls', { fullUrl: this.fullUrl }).subscribe((response: any) => {
-      this.shortUrl = response.shortUrl;
+      this.shortenerShortUrl = response.shortUrl;
     });
+  }
+
+  getFullUrl(): string {
+    console.log('getFullUrl');
+    this.http.get('/api/urls/shorturl?url=' + this.shortUrl).subscribe((response: any) => {
+      this.fullUrl = response.fullUrl;
+    });
+    console.log(this.fullUrl);
+    return this.fullUrl;
   }
 
   ngOnDestroy(): void {

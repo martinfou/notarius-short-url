@@ -44,7 +44,7 @@
     -->
     <changeSet id="20240824185006-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/url.csv"
+                  file="config/liquibase/data/url.csv"
                   separator=";"
                   tableName="url"
                   usePreparedStatements="true">

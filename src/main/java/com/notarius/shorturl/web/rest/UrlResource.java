@@ -6,6 +6,7 @@ import com.notarius.shorturl.util.UrlUtil;
 import com.notarius.shorturl.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,7 +53,14 @@ public class UrlResource {
         if (url.getId() != null) {
             throw new BadRequestAlertException("A new url cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        url.setShortUrl(UrlUtil.generateShortUrl(url.getFullUrl()));
+
+        var shortUrl = UrlUtil.generateShortUrl(url.getFullUrl());
+        Optional<Url> existingUrl = urlRepository.findByShortUrl(shortUrl);
+        if (existingUrl.isPresent()) {
+            return ResponseEntity.ok(existingUrl.get());
+        }
+        url.setShortUrl(shortUrl);
+        url.setCreationDateTime(ZonedDateTime.now());
         url = urlRepository.save(url);
         return ResponseEntity.created(new URI("/api/urls/" + url.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, url.getId().toString()))
@@ -164,6 +172,19 @@ public class UrlResource {
         log.debug("REST request to get Url : {}", id);
         Optional<Url> url = urlRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(url);
+    }
+
+    /**
+     * {@code GET  /shorturl} : get the "shorturl" url.
+     *
+     * @param `url the shorturl of the url to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the url, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/shorturl")
+    public ResponseEntity<Url> getUrlByShortUrl(@RequestParam("url") String url) {
+        log.debug("REST request to get Url : {}", url);
+        Optional<Url> shortUrl = urlRepository.findByShortUrl(url);
+        return ResponseUtil.wrapOrNotFound(shortUrl);
     }
 
     /**

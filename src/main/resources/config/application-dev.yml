@@ -15,12 +15,25 @@
 
 logging:
   level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
     ROOT: DEBUG
     tech.jhipster: DEBUG
     org.hibernate.SQL: DEBUG
     com.notarius.shorturl: DEBUG
+    org.hibernate.type: TRACE
+    org.hibernate.stat: DEBUG
+    org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator: TRACE
+    org.springframework.transaction: TRACE
 
 spring:
+  jpa:
+    show-sql: true
   devtools:
     restart:
       enabled: true

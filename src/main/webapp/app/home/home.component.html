@@ -4,18 +4,38 @@
   </div>
 
   <div class="col-md-9">
-    <div class="container">
-      <h3>URL Shortener</h3>
-      <form (submit)="generateShortUrl()">
-        <div class="form-group">
-          <label for="url">Enter URL:</label>
-          <input type="text" id="url" [(ngModel)]="fullUrl" name="url" class="form-control" />
+    <div class="row">
+      <div class="col-md-6">
+        <div class="container">
+          <h3>URL Shortener</h3>
+          <form (submit)="generateShortUrl()">
+            <div class="form-group">
+              <label for="url">Enter URL:</label>
+              <input type="text" id="url" [(ngModel)]="fullUrl" name="url" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Short URL</button>
+          </form>
+          <div>
+            <p>Short URL:</p>
+            <p>{{ shortenerShortUrl }}</p>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Generate Short URL</button>
-      </form>
-      <div>
-        <h3>Short URL:</h3>
-        <p>{{ shortUrl }}</p>
+      </div>
+      <div class="col-md-6">
+        <div class="container">
+          <h3>URL Expander</h3>
+          <form (submit)="getFullUrl()">
+            <div class="form-group">
+              <label for="shortUrl">Enter URL:</label>
+              <input type="text" id="shortUrl" [(ngModel)]="shortUrl" name="shortUrl" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Get Full URL</button>
+          </form>
+          <div>
+            <p>Full URL:</p>
+            <p>{{ fullUrl }}</p>
+          </div>
+        </div>
       </div>
     </div>
 

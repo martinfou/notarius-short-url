@@ -15,7 +15,8 @@ public class UrlUtil {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(fullUrl.getBytes(StandardCharsets.UTF_8));
             String hash = Hex.encodeHexString(encodedhash);
-            return hash.length() > 10 ? hash.substring(0, 10) : hash;
+            var normalizedHash = hash.length() > 10 ? hash.substring(0, 10) : hash;
+            return "http://short.url/" + normalizedHash;
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Unable to find SHA-256 algorithm", e);
         }
