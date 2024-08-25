@@ -3,7 +3,7 @@ package com.notarius.shorturl.util;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import org.apache.commons.codec.binary.Hex;
+import java.util.HexFormat;
 
 public class UrlUtil {
 
@@ -16,7 +16,7 @@ public class UrlUtil {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(fullUrl.getBytes(StandardCharsets.UTF_8));
-            String hash = Hex.encodeHexString(encodedhash);
+            String hash = HexFormat.of().formatHex(encodedhash);
             var normalizedHash = hash.length() > 10 ? hash.substring(0, 10) : hash;
             return HTTP_SHORT_URL + normalizedHash;
         } catch (NoSuchAlgorithmException e) {

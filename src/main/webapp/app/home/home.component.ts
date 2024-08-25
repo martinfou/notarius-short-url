@@ -27,6 +27,11 @@ export default class HomeComponent implements OnInit, OnDestroy {
   fullUrl: string;
   shortUrl: string;
 
+  private readonly destroy$ = new Subject<void>();
+
+  private accountService = inject(AccountService);
+  private router = inject(Router);
+
   constructor(private http: HttpClient) {
     this.fullUrl = '';
     this.shortUrl = '';
@@ -37,11 +42,6 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
   }
 
-  private readonly destroy$ = new Subject<void>();
-
-  private accountService = inject(AccountService);
-  private router = inject(Router);
-
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
@@ -49,20 +49,22 @@ export default class HomeComponent implements OnInit, OnDestroy {
       .subscribe(account => this.account.set(account));
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   login(): void {
     this.router.navigate(['/login']);
   }
 
   generateShortUrl(): void {
-    console.log('generateShortUrl');
-    console.log(this.fullUrl);
     this.http.post('/api/urls', { fullUrl: this.fullUrl }).subscribe((response: any) => {
       this.shortenerShortUrl = response.shortUrl;
     });
   }
 
-  getFullUrl() {
-    console.log('getFullUrl ' + this.expanderShortUrl);
+  getFullUrl(): void {
     this.http.get('/api/urls/shorturl?url=' + this.expanderShortUrl).subscribe(
       (response: any) => {
         this.expanderFullUrl = response.fullUrl;
@@ -77,10 +79,5 @@ export default class HomeComponent implements OnInit, OnDestroy {
         }
       },
     );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

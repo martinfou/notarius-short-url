@@ -7,11 +7,15 @@ import org.junit.jupiter.api.Test;
 
 public class UrlUtilTest {
 
+    public static final String HTTP_SHORT_URL = "http://short.url/";
+
     @Test
     public void generateShortUrl_returnsShortUrlForGivenFullUrl() {
         String fullUrl = "https://www.example.com";
         String shortUrl = UrlUtil.generateShortUrl(fullUrl);
-        assertTrue(shortUrl.length() <= 10);
+        //removec the http://short.url/ part from shortUrl
+        String hash = shortUrl.substring(HTTP_SHORT_URL.length());
+        assertTrue(hash.length() <= 10);
     }
 
     @Test

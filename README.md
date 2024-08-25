@@ -2,44 +2,80 @@
 
 # Challenge nouveau développeur Notarius
 
-Ce projet est une application web qui permet de raccourcir des URL.
-A partir d'une URL longue, l'application génère une URL courte.
-A partir de l'URL courte, l'application retourne l'URL longue original.
-Si l'URL courte n'existe pas, l'application retourne un message d'erreur.
+Ce projet est une application web qui raccourcit des URL.
 
-l'application a ete développée en utilisant le framework JHipster qui est un générateur de projet pour les applications web modernes.
+l'application a été développée en utilisant le framework JHipster qui est un générateur de projet pour les applications web modernes.
 
-### Ce que je voulais montrer dans ce projet:
+Critère d'acceptation:
 
-- La capacité de comprendre et de travailler avec des outils modernes pour rapidement developper des applications web.
-- Demontrer que je maitrise les concepts de base de données et JPA
-- Demontrer que je maitrise les concepts de Spring Boot
-- Demontrer que je maitrise les concepts de base de l'architecture REST
-- Demontrer que je maitrise les concepts de developpement front-end en utilisant Angular
--
+- Vous fournissez une URL longue, et l'application génère une URL courte.
+- Lorsque vous entrez l'URL courte, l'application vous retourne l'URL longue originale.
+- Si l'URL courte n'existe pas dans la base de donnée, l'application affiche un message d'erreur.
+- Le partie suffix de l'URL court ne doit pas dépasser 10 caractères.
+- Les données doivent survivre à un redémarrage de l'application.
+
+### Ce que je voulais démontrer dans ce projet:
+
+- Demontrer que je maitrise des outils modernes pour developper rapidement des applications web.
+- Demontrer que je maitrise les concepts de base de données et **JPA** en utilisant **H2** et **liquibase**.
+- Demontrer que je maitrise les concepts de **Spring Boot** en utilisant **Spring Data JPA**, **Spring Web** et **Spring Security**.
+- Demontrer que je maitrise les concepts de base de l'architecture **REST** en utilisant **swagger-ui**
+- Demontrer que je maitrise les concepts de développement **front-end** en utilisant **Angular**
+- Demontrer que je maitrise les concepts de **tests unitaires** et d'**intégration** en utilisant **JUnit** et **Jest**.
+- Demontrer que je maitrise les concepts de sécurité en utilisant **Spring Security** pour sécuriser l'application et **JWT** pour l'**authentification**.
+- Demontrer que je maitrise les concepts de containers en utilisant **Docker** pour **containeriser** l'application.
+- Demontrer que je suis soucieux de la qualité du code en utilisant **SonarQube** pour analyser le code.
 
 ### Opportunité d'amélioration ...
 
 - Je regrette de ne pas avoir pris le temps de tradruire l'application.
-- Je regrette d'avoir codé les regles d'affaire directement dans le controlleur au lieu de créer un service.
+- Je regrette d'avoir codé les regles d'affaire directement dans le controlleur / ressource au lieu de créer un service.
 - Utiliser les entités JPA directement dans les controlleurs au lieu d'utiliser des DTOs.
 
-## Pour lancer l'application Linux / MacOS
+### Pour lancer l'application en mode dev Linux / MacOS
 
 ```
 ./mvnw
 ```
 
-## Pour lancer l'application Windows avec CMD et non pas PowerShell
+### Pour lancer l'application en mode dev sous Windows avec CMD et non pas PowerShell
 
 ```
 mvnw
 ```
 
-## une collection postman pour tester l'application
+### Pour builder l'application en mode PROD sous Windows avec CMD
+
+```
+mvnw -Pprod clean verify
+```
+
+### une collection postman pour tester l'application
 
 ```
 src/test/resources/postman/notarius-short-url.postman_collection.json
+```
+
+### Pour lancer l'application en mode PROD sous Windows avec CMD
+
+ne pas oublier de lancer un serveur postgresql en local avec la config docker fournie
+
+```
+docker compose -f src/main/docker/postgresql.yml up -d
+```
+
+```
+java -jar target/notarius-short-url-0.0.1-SNAPSHOT.jar
+```
+
+### Pour dockeriser l'application avec les services nécessaires
+
+```
+npm run java:docker
+```
+
+```
+docker compose -f src/main/docker/app.yml up -d
 ```
 
 ## notariusShortUrl

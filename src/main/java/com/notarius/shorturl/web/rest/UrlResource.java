@@ -53,18 +53,17 @@ public class UrlResource {
         if (url.getId() != null) {
             throw new BadRequestAlertException("A new url cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
         var shortUrl = UrlUtil.generateShortUrl(url.getFullUrl());
-        Optional<Url> existingUrl = urlRepository.findByShortUrl(shortUrl);
-        if (existingUrl.isPresent()) {
-            return ResponseEntity.ok(existingUrl.get());
-        }
-        url.setShortUrl(shortUrl);
-        url.setCreationDateTime(ZonedDateTime.now());
-        url = urlRepository.save(url);
-        return ResponseEntity.created(new URI("/api/urls/" + url.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, url.getId().toString()))
-            .body(url);
+        Url resultUrl = urlRepository
+            .findByShortUrl(shortUrl)
+            .orElseGet(() -> {
+                url.setShortUrl(shortUrl);
+                url.setCreationDateTime(ZonedDateTime.now());
+                return urlRepository.save(url);
+            });
+        return ResponseEntity.created(new URI("/api/urls/" + resultUrl.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, resultUrl.getId().toString()))
+            .body(resultUrl);
     }
 
     /**
