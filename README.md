@@ -1,4 +1,48 @@
-# notariusShortUrl
+# Challenge nouveau développeur Notarius
+
+Ce projet est une application web qui permet de raccourcir des URL.
+A partir d'une URL longue, l'application génère une URL courte.
+A partir de l'URL courte, l'application retourne l'URL longue original.
+Si l'URL courte n'existe pas, l'application retourne un message d'erreur.
+
+l'application a ete développée en utilisant le framework JHipster qui est un générateur de projet pour les applications web modernes.
+
+### Ce que je voulais montrer dans ce projet:
+
+- La capacité de comprendre et de travailler avec des outils modernes pour rapidement developper des applications web.
+- Demontrer que je maitrise les concepts de base de données et JPA
+- Demontrer que je maitrise les concepts de Spring Boot
+- Demontrer que je maitrise les concepts de base de l'architecture REST
+- Demontrer que je maitrise les concepts de developpement front-end en utilisant Angular
+-
+
+### Opportunité d'amélioration ...
+
+- Je regrette de ne pas avoir pris le temps de tradruire l'application.
+- Je regrette d'avoir codé les regles d'affaire directement dans le controlleur au lieu de créer un service.
+- Utiliser les entités JPA directement dans les controlleurs au lieu d'utiliser des DTOs.
+
+## Pour lancer l'application Linux / MacOS
+
+```
+./mvnw
+```
+
+## Pour lancer l'application Windows avec CMD et non pas PowerShell
+
+```
+mvnw
+```
+
+## une collection postman pour tester l'application
+
+```
+src/test/resources/postman/notarius-short-url.postman_collection.json
+```
+
+![](assets/UrlShortenerDemo.gif)
+
+## notariusShortUrl
 
 This application was generated using JHipster 8.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.6.0](https://www.jhipster.tech/documentation-archive/v8.6.0).
 
