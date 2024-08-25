@@ -1,3 +1,5 @@
+![](assets/UrlShortenerDemo.gif)
+
 # Challenge nouveau développeur Notarius
 
 Ce projet est une application web qui permet de raccourcir des URL.
@@ -39,8 +41,6 @@ mvnw
 ```
 src/test/resources/postman/notarius-short-url.postman_collection.json
 ```
-
-![](assets/UrlShortenerDemo.gif)
 
 ## notariusShortUrl
 
